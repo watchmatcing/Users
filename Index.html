@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Match | Tebak Skor & Menangkan!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 26px;
+      color: #00ffae;
+    }
+    .match-box {
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .team {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .vs {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    .live {
+      background-color: red;
+      color: white;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .cta {
+      background-color: #28a745;
+      color: white;
+      padding: 14px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .cta:hover {
+      background-color: #218838;
+    }
+    .countdown {
+      font-size: 16px;
+      margin-top: 15px;
+      color: #ffd700;
+    }
+    .info {
+      font-size: 14px;
+      margin-top: 15px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚽ Live Match Hari Ini</h1>
+    <div class="match-box">
+      <div class="live">LIVE</div>
+      <div class="team" id="homeTeam">Tim A</div>
+      <div class="vs">vs</div>
+      <div class="team" id="awayTeam">Tim B</div>
+      <div class="countdown">⏰ Promo berakhir dalam: <span id="timer">04:59</span></div>
+      <button class="cta" onclick="goToCPA()">💰 Tebak Skor & Menangkan Bonus</button>
+    </div>
+    <div class="info">Tanpa deposit awal • Klaim bonusmu sekarang • 100% gratis daftar</div>
+  </div>
+
+  <script>
+    // Timer
+    let time = 299;
+    const timerEl = document.getElementById("timer");
+    const interval = setInterval(() => {
+      let m = Math.floor(time / 60);
+      let s = time % 60;
+      timerEl.textContent = `${m}:${s < 10 ? '0'+s : s}`;
+      time--;
+      if (time < 0) {
+        clearInterval(interval);
+        timerEl.textContent = "00:00";
+      }
+    }, 1000);
+
+    // Ambil tim dari URL
+    const params = new URLSearchParams(window.location.search);
+    const home = params.get("home") || "Tim A";
+    const away = params.get("away") || "Tim B";
+
+    document.getElementById("homeTeam").textContent = home;
+    document.getElementById("awayTeam").textContent = away;
+
+    // CPA redirect pakai Base64
+    function goToCPA() {
+      const encoded = "aHR0cHM6Ly9saW5rLWFmaWxpYXRlLmNvbS9vZmZlcjEyMw=="; // ganti dengan link CPA kamu (Base64)
+      const url = atob(encoded);
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
